@@ -11,7 +11,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import static junit.framework.TestCase.fail;
 import static org.junit.Assert.assertEquals;
 
-@Ignore
+//@Ignore
 @RunWith(PowerMockRunner.class)
 @PrepareForTest(TransactionContext.class)
 public class TransactionContextMockTest extends AbstractTest {
