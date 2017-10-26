@@ -1,0 +1,34 @@
+package com.romajs.jaxrs.feature;
+
+import com.fasterxml.jackson.jaxrs.base.JsonMappingExceptionMapper;
+import com.fasterxml.jackson.jaxrs.base.JsonParseExceptionMapper;
+import com.romajs.jaxrs.provider.JerseyJacksonJsonProvider;
+import org.glassfish.jersey.internal.InternalProperties;
+import org.glassfish.jersey.internal.util.PropertiesHelper;
+
+import javax.ws.rs.core.Configuration;
+import javax.ws.rs.core.Feature;
+import javax.ws.rs.core.FeatureContext;
+import javax.ws.rs.ext.MessageBodyReader;
+import javax.ws.rs.ext.MessageBodyWriter;
+
+public class JerseyJacksonFeature implements Feature {
+
+	private final static String JSON_FEATURE = JerseyJacksonFeature.class.getSimpleName();
+
+	@Override
+	public boolean configure(FeatureContext context) {
+
+		context.register(JsonParseExceptionMapper.class);
+		context.register(JsonMappingExceptionMapper.class);
+		context.register(JerseyJacksonJsonProvider.class, MessageBodyReader.class, MessageBodyWriter.class);
+
+		final Configuration config = context.getConfiguration();
+		// Disables discoverability of org.glassfish.jersey.jackson.JacksonFeature
+		context.property(
+				PropertiesHelper.getPropertyNameForRuntime(InternalProperties.JSON_FEATURE,
+						config.getRuntimeType()), JSON_FEATURE);
+
+		return true;
+	}
+}
