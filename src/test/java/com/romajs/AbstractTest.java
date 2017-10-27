@@ -20,7 +20,7 @@ public abstract class AbstractTest {
 	public static void setUpClass() throws Exception {
 		server = new EmbddedJettyServer(8081, "/", "src/main/webapp", null);
 		server.start();
-		emFactory = Persistence.createEntityManagerFactory("mvn-web-2017");
+		emFactory = Persistence.createEntityManagerFactory("mvn-web-2017-pu");
 	}
 
 	@Before
